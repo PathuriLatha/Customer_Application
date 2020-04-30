@@ -22,7 +22,6 @@ public class CustomerServiceImpl implements CustomerService {
 	/** The customer repository. */
 	@Autowired
 	private CustomerRepository customerRepository;
-//	private CustomerRepository customerRepository = null;
 	
 	/**
  * Save customer.
@@ -71,5 +70,15 @@ public class CustomerServiceImpl implements CustomerService {
 		return customer;
 	}
 
+	@Override
+	public List<Customer> search(String keyword) {
+	    return customerRepository.search(keyword);
+	}
 
+	
+	@Override
+	public Customer updateCustomerById(int id) {
+		return customerRepository.updateCustomerById(id);
+	}
+	
 }

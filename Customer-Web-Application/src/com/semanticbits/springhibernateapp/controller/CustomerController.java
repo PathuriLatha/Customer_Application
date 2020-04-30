@@ -3,6 +3,9 @@ package com.semanticbits.springhibernateapp.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.hibernate.mapping.Value;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,31 +25,26 @@ import com.semanticbits.springhibernateapp.serviceimpl.CustomerServiceImpl;
 @Controller
 @RequestMapping("/customer")
 public class CustomerController {
-	
+
 	/** The customer service. */
 	@Autowired
 	private CustomerService customerService;
-//	private CustomerService customerService = null;
-	
-	/*
-	 * @RequestMapping("/list") public String listCustomer(Model theModel) { return
-	 * "list-customer"; // list-customer is jsp page name }
-	 */
-	
+
+
 	/**
- * Gets the customers list.
- *
- * @return the customers list
- */
-@RequestMapping("/list")
+	 * Gets the customers list.
+	 *
+	 * @return the customers list
+	 */
+	@RequestMapping("/list")
 	public ModelAndView getCustomersList() {
 //		customerService = new CustomerServiceImpl();
-	    List<Customer> listCustomer = customerService.getCustomersList();
-	    ModelAndView mav = new ModelAndView("list-customer");
-	    mav.addObject("listCustomer", listCustomer);
-	    return mav;
+		List<Customer> listCustomer = customerService.getCustomersList();
+		ModelAndView mav = new ModelAndView("list-customer");
+		mav.addObject("listCustomer", listCustomer);
+		return mav;
 	}
-	
+
 	/**
 	 * New customer form.
 	 *
@@ -55,11 +53,11 @@ public class CustomerController {
 	 */
 	@RequestMapping("/new")
 	public String newCustomerForm(Map<String, Object> model) {
-	    Customer customer = new Customer();
-	    model.put("customer", customer);
-	    return "new_customer";
+		Customer customer = new Customer();
+		model.put("customer", customer);
+		return "new_customer";
 	}
-	
+
 	/**
 	 * Save customer.
 	 *
@@ -68,10 +66,10 @@ public class CustomerController {
 	 */
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String saveCustomer(@ModelAttribute("customer") Customer customer) {
-	    customerService.saveCustomer(customer);
-	    return "redirect:/customer/list";
+		customerService.saveCustomer(customer);
+		return "redirect:/customer/list";
 	}
-	
+
 	/**
 	 * Delete customer form.
 	 *
@@ -80,9 +78,12 @@ public class CustomerController {
 	 */
 	@RequestMapping("/delete")
 	public String deleteCustomerForm(@RequestParam int id) {
-	    customerService.deleteCustomer(id);
-	    return "redirect:/customer/list";       
+		customerService.deleteCustomer(id);
+		return "redirect:/customer/list";
 	}
+
+	
+
 	
 	/**
 	 * Edits the customer form.
@@ -90,14 +91,28 @@ public class CustomerController {
 	 * @param id the id
 	 * @return the model and view
 	 */
-	@RequestMapping("/edit")
-	public ModelAndView editCustomerForm(@RequestParam int id) {
-	    ModelAndView mav = new ModelAndView("edit_customer");
-	    Customer customer = customerService.getById(id);
-	    mav.addObject("customer", customer);
-	 
-	    return mav;
+	@RequestMapping(value = "/edit")
+	public String editCustomerForm(@RequestParam("id") int id, Model model) {
+		Customer customer = customerService.updateCustomerById(id);
+		model.addAttribute("customer",customer);
+		return "edit_customer";
 	}
 	
+	
+	
+	/**
+	 * Search.
+	 *
+	 * @param keyword the keyword
+	 * @return the model and view
+	 */
+	@RequestMapping("/search")
+	public ModelAndView search(@RequestParam String keyword) {
+	    List<Customer> result = customerService.search(keyword);
+	    ModelAndView mav = new ModelAndView("search");
+	    mav.addObject("result", result);
+	    return mav;    
+	}
+			 
 	
 }

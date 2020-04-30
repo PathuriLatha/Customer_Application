@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%-- <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
@@ -12,4 +12,7 @@
 <a href="customer/list">view customers</a>
 </div>
 </body>
-</html>
+</html> --%>
+
+
+<% response.sendRedirect("customer/list"); %>

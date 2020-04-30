@@ -13,6 +13,9 @@ public interface CustomerService {
 	public void deleteCustomer(int id);
 
 	public Customer getById(int id);
+	
+	public List<Customer> search(String keyword);
 
+	public Customer updateCustomerById(int id);
 
 }

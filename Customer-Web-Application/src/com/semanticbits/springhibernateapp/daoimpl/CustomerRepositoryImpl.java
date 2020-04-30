@@ -56,8 +56,7 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 	@Override
 	@Transactional
 	public void deleteCustomer(int id) {
-		 Customer customer = (Customer) sessionFactory.getCurrentSession().load(
-	                Customer.class, id);
+		 Customer customer = (Customer) sessionFactory.getCurrentSession().load(Customer.class, id);
 	        if (null != customer) {
 	            this.sessionFactory.getCurrentSession().delete(customer);
 	        }
@@ -72,8 +71,36 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 	@Override
 	@Transactional
 	public Customer getById(int id) {
-		Customer customer = (Customer) sessionFactory.getCurrentSession().get(
-				Customer.class, id);
+		Customer customer = (Customer) sessionFactory.getCurrentSession().get(Customer.class, id);
+		return customer;
+	}
+
+	/**
+	 * Search.
+	 *
+	 * @param keyword the keyword
+	 * @return the list
+	 */
+	@Override
+	@Transactional
+	public List<Customer> search(String keyword) {
+		List<Customer> list = null;
+		list = sessionFactory.getCurrentSession().createQuery("from Customer where first_name LIKE '%"+keyword+"%' OR last_name LIKE '%"+keyword+"%' ", Customer.class).list();
+		return list;
+	}
+
+	/**
+	 * Update customer by id.
+	 *
+	 * @param id the id
+	 * @return the customer
+	 */
+	@Override
+	@Transactional
+	public Customer updateCustomerById(int id) {
+		Session session = sessionFactory.getCurrentSession();
+		Customer customer = session.get(Customer.class,id);
+		
 		return customer;
 	}
 

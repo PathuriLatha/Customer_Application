@@ -17,6 +17,10 @@ public interface CustomerRepository{
 
 	public Customer getById(int id);
 
+	public List<Customer> search(String keyword);
+
+	public Customer updateCustomerById(int id);
+
 	
 }
 
