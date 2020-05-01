@@ -8,44 +8,48 @@
 <!-- <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"> -->
 <title>Customer Relationship Management</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-	<style type="text/css">
-		
-	</style>
+<style type="text/css">
+	.titleText{
+		border: 1px solid blue;
+		box-sizing: border-box;
+	}
+</style>	
 </head>
 <body>
-	<div class="container">
-		<h2>CRM - Customer Relationship Manager</h2>
+	<div class="container" align="center">
+		<h2 class="titleText text-danger">CRM - Customer Relationship Manager</h2>
 		<form method="get" action="search">
 			Search Customer : &nbsp; <input type="text" name="keyword" /> &nbsp;
 			<input type="submit" value="Search" class="btn btn-info search"/>
 		</form>
 		<br>
-		
-		<table class="table table-hover table-striped" >
-			<tr class="bg-primary text-white">
-				<!-- <th>ID</th> -->
-				<th>First Name</th>
-				<th>Last Name</th>
-				<th>Email</th>
-				<th>Action</th>
-			</tr>
-			<c:forEach items="${listCustomer}" var="customer">
-				<tr>
-					<%-- <td>${customer.id}</td> --%>
-					<td>${customer.firstName}</td>
-					<td>${customer.lastName}</td>
-					<td>${customer.email}</td>
-					<td><a
-						href="/Customer-Web-Application/customer/edit?id=${customer.id}">Update</a>
-						&nbsp; | &nbsp;&nbsp; <a
-						onclick="if(!confirm('Are you sure you want to delete this customer?')) return false;"
-						href="/Customer-Web-Application/customer/delete?id=${customer.id}">Delete</a>
-					</td>
+		<div class="table-responsive text-center">
+			<table class="table table-hover table-striped" >
+				<tr class="bg-primary text-white">
+					<!-- <th>ID</th> -->
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Email</th>
+					<th>Action</th>
 				</tr>
-			</c:forEach>
-		</table>
+				<c:forEach items="${listCustomer}" var="customer">
+					<tr>
+						<%-- <td>${customer.id}</td> --%>
+						<td>${customer.firstName}</td>
+						<td>${customer.lastName}</td>
+						<td>${customer.email}</td>
+						<td><a
+							href="/Customer-Web-Application/customer/edit?id=${customer.id}">Update</a>
+							&nbsp; | &nbsp;&nbsp; <a
+							onclick="if(!confirm('Are you sure you want to delete this customer?')) return false;"
+							href="/Customer-Web-Application/customer/delete?id=${customer.id}">Delete</a>
+						</td>
+					</tr>
+				</c:forEach>
+			</table>
+		</div>
 		<br>
-		<div align="left">
+		<div align="">
 			<input type="button" class="btn btn-success" value="Add Customer"
 				onclick="window.location.href='new'; return false;" />
 		</div>

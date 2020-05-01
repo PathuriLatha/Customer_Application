@@ -6,34 +6,52 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <title>Search Result</title>
+<style type="text/css">
+	.titleText{
+		border: 1px solid blue;
+		box-sizing: border-box;
+	}
+</style>
 </head>
 <body>
-	<div align="center">
-		<h2>Search Result</h2>
-		<table border="1" cellpadding="5">
-			<tr>
-				<!-- <th>ID</th> -->
-				<th>First Name</th>
-				<th>Last Name</th>
-				<th>Email</th>
-				<th>Action</th>
-			</tr>
-			<c:forEach items="${result}" var="customer">
-				<tr>
-					<%-- <td>${customer.id}</td> --%>
-					<td>${customer.firstName}</td>
-					<td>${customer.lastName}</td>
-					<td>${customer.email}</td>
-					<td><a
-						href="/Customer-Web-Application/customer/edit?id=${customer.id}">Update</a>
-						&nbsp; | &nbsp;&nbsp; <a
-						onclick="if(!confirm('Are you sure you want to delete this customer?')) return false;"
-						href="/Customer-Web-Application/customer/delete?id=${customer.id}">Delete</a>
-					</td>
+	<div align="center" align="center">
+		<h2 class="titleText text-danger">CRM - Customer Relationship Manager</h2>
+		<!-- <h3 class="text-info">Search Result</h3> -->
+		<form method="get" action="search">
+			Search Customer : &nbsp; <input type="text" name="keyword" value="${param.keyword}"/> &nbsp;
+			<input type="submit" value="Search" class="btn btn-info search"/>
+		</form>
+		<br>
+		<div class="table-responsive text-center">
+			<table class="table table-hover table-striped">
+				<tr class="bg-primary text-white">
+					<!-- <th>ID</th> -->
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Email</th>
+					<th>Action</th>
 				</tr>
-			</c:forEach>
-		</table>
+				<c:forEach items="${result}" var="customer">
+					<tr>
+						<%-- <td>${customer.id}</td> --%>
+						<td>${customer.firstName}</td>
+						<td>${customer.lastName}</td>
+						<td>${customer.email}</td>
+						<td><a
+							href="/Customer-Web-Application/customer/edit?id=${customer.id}">Update</a>
+							&nbsp; | &nbsp;&nbsp; <a
+							onclick="if(!confirm('Are you sure you want to delete this customer?')) return false;"
+							href="/Customer-Web-Application/customer/delete?id=${customer.id}">Delete</a>
+						</td>
+					</tr>
+				</c:forEach>
+			</table>
+		</div>
 	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </body>
 </html>
